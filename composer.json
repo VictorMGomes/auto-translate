@@ -1,0 +1,28 @@
+{
+    "name": "victormgomes/auto-translate",
+    "description": "Auto translate package for Laravel applications",
+    "version": "0.0.1",
+    "keywords": [
+        "laravel",
+        "translation",
+        "auto-translate",
+        "i18n"
+    ],
+    "homepage": "https://github.com/victormgomes/auto-translate",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Victor M. Gomes",
+            "email": "info@victormgomes.net"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Victormgomes\\AutoTranslate\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
