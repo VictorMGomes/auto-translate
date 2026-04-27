@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Victormgomes\AutoTranslate\Support;
+namespace Victormgomes\AutoTranslate\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

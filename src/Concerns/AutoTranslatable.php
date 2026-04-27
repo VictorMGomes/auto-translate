@@ -6,8 +6,8 @@ namespace Victormgomes\AutoTranslate\Concerns;
 
 use Illuminate\Support\Facades\Cache;
 use Victormgomes\AutoTranslate\Jobs\TranslateModelJob;
+use Victormgomes\AutoTranslate\Models\AutoTranslation;
 use Victormgomes\AutoTranslate\Support\AutoTranslateHelper;
-use Victormgomes\AutoTranslate\Support\AutoTranslation;
 
 trait AutoTranslatable
 {

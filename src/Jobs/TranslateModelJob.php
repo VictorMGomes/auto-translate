@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use LaravelLang\Translator\Services\Translate;
 use Throwable;
+use Victormgomes\AutoTranslate\Models\AutoTranslation;
 use Victormgomes\AutoTranslate\Support\AutoTranslateHelper;
-use Victormgomes\AutoTranslate\Support\AutoTranslation;
 
 final class TranslateModelJob implements ShouldQueue
 {

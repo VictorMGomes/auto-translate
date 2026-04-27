@@ -6,6 +6,7 @@ namespace Victormgomes\AutoTranslate\Support;
 
 use Illuminate\Database\Eloquent\Model;
 use ReflectionClass;
+use Victormgomes\AutoTranslate\AutoTranslate;
 
 final class AutoTranslateHelper
 {

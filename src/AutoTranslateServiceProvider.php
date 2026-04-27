@@ -4,27 +4,32 @@ declare(strict_types=1);
 
 namespace Victormgomes\AutoTranslate;
 
-use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Victormgomes\AutoTranslate\Commands\AutoTranslateCommand;
+use Victormgomes\AutoTranslate\Support\AutoTranslateHelper;
 
-class AutoTranslateServiceProvider extends ServiceProvider
+class AutoTranslateServiceProvider extends PackageServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
+    public function configurePackage(Package $package): void
     {
-        //
+        /*
+         * This class is a Package Service Provider
+         *
+         * More info: https://github.com/spatie/laravel-package-tools
+         */
+        $package
+            ->name('auto-translate')
+            ->hasConfigFile()
+            ->hasViews()
+            ->hasMigration('create_auto_translations_table')
+            ->hasCommand(AutoTranslateCommand::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
+    public function packageRegistered(): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/migrations/2026_04_25_000000_create_auto_translations_table.php' => database_path('migrations/2026_04_25_000000_create_auto_translations_table.php'),
-            ], 'auto-translate-migrations');
-        }
+        $this->app->singleton(AutoTranslateHelper::class, function () {
+            return new AutoTranslateHelper;
+        });
     }
 }

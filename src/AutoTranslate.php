@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Victormgomes\AutoTranslate\Support;
+namespace Victormgomes\AutoTranslate;
 
 use Attribute;
 
