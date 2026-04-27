@@ -1,7 +1,7 @@
 {
   "name": "victormgomes/auto-translate",
   "description": "Auto translate package for Laravel applications",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [
     "Victor M. Gomes",
     "laravel",
