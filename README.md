@@ -1,19 +1,33 @@
-# Auto translate package for Laravel applications
+# Auto Translate
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/victormgomes/auto-translate.svg?style=flat-square)](https://packagist.org/packages/victormgomes/auto-translate)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/victormgomes/auto-translate/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/victormgomes/auto-translate/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/victormgomes/auto-translate/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/victormgomes/auto-translate/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/victormgomes/auto-translate.svg?style=flat-square)](https://packagist.org/packages/victormgomes/auto-translate)
+[![License](https://img.shields.io/packagist/l/victormgomes/auto-translate.svg?style=flat-square)](https://packagist.org/packages/victormgomes/auto-translate)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+**Automatic translation for translatable attributes in Eloquent models**
+
+---
+
+## Introduction
+
+**Auto Translate** is a powerful addon for `spatie/laravel-translatable` that automates the translation of your model attributes. It listens for model saving events and automatically translates your content into multiple languages using configured translation providers.
+
+### Why use this package?
+
+*   **Automation**: Save time by letting the package handle translations automatically upon saving models.
+*   **Seamless Integration**: Built specifically to work with the industry-standard `spatie/laravel-translatable`.
+*   **Declarative Configuration**: Use PHP attributes to define which fields should be translated, keeping your models clean and readable.
+*   **Scalable**: Easily manage multi-language content across your entire application without manual intervention.
+
+---
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/auto-translate.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/auto-translate)
+We invest a lot of resources into creating [best in class open source packages](https://github.com/victormgomes). You can support us by [sponsoring us on GitHub](https://github.com/sponsors/VictorMGomes).
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+---
 
 ## Installation
 
@@ -30,31 +44,29 @@ php artisan vendor:publish --tag="auto-translate-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="auto-translate-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="auto-translate-views"
-```
+---
 
 ## Usage
 
+Simply use the `AutoTranslatable` trait and the `#[AutoTranslate]` attribute on your models. Specify which fields should be automatically translated.
+
 ```php
-$autoTranslate = new Victormgomes\AutoTranslate();
-echo $autoTranslate->echoPhrase('Hello, Victormgomes!');
+use Victormgomes\AutoTranslate\Concerns\AutoTranslatable;
+use Victormgomes\AutoTranslate\AutoTranslate;
+use Spatie\Translatable\HasTranslations;
+
+#[AutoTranslate(fields: ['name'])]
+class Category extends Model
+{
+    use AutoTranslatable, HasTranslations;
+
+    public $translatable = ['name'];
+}
 ```
+
+When you save the `Category` model, the `name` attribute will be automatically translated into all supported locales defined in your configuration.
+
+---
 
 ## Testing
 

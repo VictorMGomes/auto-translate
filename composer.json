@@ -1,7 +1,7 @@
 {
   "name": "victormgomes/auto-translate",
-  "description": "Auto translate package for Laravel applications",
-  "version": "0.0.3",
+  "description": "Automatic translation for translatable attributes in Eloquent models",
+  "version": "0.0.4",
   "keywords": [
     "Victor M. Gomes",
     "laravel",
@@ -9,6 +9,16 @@
   ],
   "homepage": "https://github.com/victormgomes/auto-translate",
   "license": "MIT",
+  "support": {
+    "issues": "https://github.com/victormgomes/auto-translate/issues",
+    "source": "https://github.com/victormgomes/auto-translate"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/VictorMGomes"
+    }
+  ],
   "authors": [
     {
       "name": "Victor M. Gomes",
