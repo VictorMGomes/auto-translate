@@ -18,7 +18,7 @@ final class AutoTranslation extends Model
     ];
 
     /**
-     * @return MorphTo<\Illuminate\Database\Eloquent\Model, $this>
+     * @return MorphTo<Model, $this>
      */
     public function translatable(): MorphTo
     {

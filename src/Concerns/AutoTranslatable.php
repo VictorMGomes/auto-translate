@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Victormgomes\AutoTranslate\Concerns;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Victormgomes\AutoTranslate\Jobs\TranslateModelJob;
 use Victormgomes\AutoTranslate\Models\AutoTranslation;
 use Victormgomes\AutoTranslate\Support\AutoTranslateHelper;
 
 /**
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 trait AutoTranslatable
 {
@@ -20,7 +22,7 @@ trait AutoTranslatable
     }
 
     /**
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function getAttribute($key)
@@ -42,7 +44,7 @@ trait AutoTranslatable
         $cacheKey = 'auto_translate:'.get_class($this).':'.$this->getKey().':'.$key.':'.$locale;
 
         return Cache::remember($cacheKey, now()->addDays(7), function () use ($key, $locale, $value) {
-            /** @var \Illuminate\Database\Eloquent\Builder<AutoTranslation> $query */
+            /** @var Builder<AutoTranslation> $query */
             $query = AutoTranslation::query();
             $translation = $query->where('translatable_type', get_class($this))
                 ->where('translatable_id', $this->getKey())

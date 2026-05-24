@@ -3,8 +3,10 @@
 namespace Victormgomes\AutoTranslate\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Victormgomes\AutoTranslate\AutoTranslateServiceProvider;
+use Victormgomes\AutoTranslate\Concerns\AutoTranslatable;
 
 class TestCase extends Orchestra
 {
@@ -30,7 +32,7 @@ class TestCase extends Orchestra
     }
 }
 
-class TestModel extends \Illuminate\Database\Eloquent\Model
+class TestModel extends Model
 {
-    use \Victormgomes\AutoTranslate\Concerns\AutoTranslatable;
+    use AutoTranslatable;
 }

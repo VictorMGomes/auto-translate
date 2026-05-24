@@ -10,7 +10,7 @@ use Attribute;
 final class AutoTranslate
 {
     /**
-     * @param array<int, string>|null $fields
+     * @param  array<int, string>|null  $fields
      */
     public function __construct(
         public ?array $fields = null
