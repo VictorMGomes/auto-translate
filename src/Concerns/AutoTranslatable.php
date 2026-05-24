@@ -9,6 +9,10 @@ use Victormgomes\AutoTranslate\Jobs\TranslateModelJob;
 use Victormgomes\AutoTranslate\Models\AutoTranslation;
 use Victormgomes\AutoTranslate\Support\AutoTranslateHelper;
 
+/**
+ * @mixin \Illuminate\Database\Eloquent\Model
+ * @phpstan-ignore-next-line
+ */
 trait AutoTranslatable
 {
     public static function bootAutoTranslatable(): void

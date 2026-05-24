@@ -16,6 +16,7 @@ final class AutoTranslateHelper
         $attributes = $reflection->getAttributes(AutoTranslate::class);
 
         if (! empty($attributes)) {
+            /** @var AutoTranslate $attr */
             $attr = $attributes[0]->newInstance();
             if ($attr->fields) {
                 return $attr->fields;

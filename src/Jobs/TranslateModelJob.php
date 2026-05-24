@@ -96,6 +96,7 @@ final class TranslateModelJob implements ShouldQueue
                       Return ONLY the translated text, preserving any HTML tags or placeholders like :name or :attribute.
                       Text: \"{$sourceText}\"";
 
+            /** @phpstan-ignore-next-line */
             $translatedText = Ai::withConnection($connection)
                 ->withModel($modelName)
                 ->prompt($prompt)
