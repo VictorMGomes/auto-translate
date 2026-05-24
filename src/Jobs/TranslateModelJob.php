@@ -39,6 +39,7 @@ final class TranslateModelJob implements ShouldQueue
             return;
         }
 
+        /** @var Model|null $model */
         $model = $this->modelClass::query()->find($this->modelId);
         if (! $model) {
             return;
@@ -46,6 +47,7 @@ final class TranslateModelJob implements ShouldQueue
 
         $targets = $this->resolveTargetLocales();
         $fields = AutoTranslateHelper::getTranslatableAttributes($model);
+        /** @var string $fallbackLocale */
         $fallbackLocale = config('app.fallback_locale', 'pt_BR');
 
         if (empty($targets) || empty($fields)) {
@@ -62,7 +64,9 @@ final class TranslateModelJob implements ShouldQueue
             }
         }
 
-        Cache::tags(['auto_translate', get_class($model), (string) $model->getKey()])->flush();
+        /** @var int|string $modelKey */
+        $modelKey = $model->getKey();
+        Cache::tags(['auto_translate', get_class($model), (string) $modelKey])->flush();
     }
 
     private function translateAttribute(
@@ -87,7 +91,9 @@ final class TranslateModelJob implements ShouldQueue
         }
 
         try {
+            /** @var string $connection */
             $connection = config('auto-translate.ai_connection');
+            /** @var string $modelName */
             $modelName = config('auto-translate.ai_model');
 
             Log::info("[AutoTranslate] Translating '$field' to '$targetLocale' via AI ($connection/$modelName)");
@@ -96,7 +102,6 @@ final class TranslateModelJob implements ShouldQueue
                       Return ONLY the translated text, preserving any HTML tags or placeholders like :name or :attribute.
                       Text: \"{$sourceText}\"";
 
-            /** @phpstan-ignore-next-line */
             $translatedText = Ai::withConnection($connection)
                 ->withModel($modelName)
                 ->prompt($prompt)
@@ -120,10 +125,16 @@ final class TranslateModelJob implements ShouldQueue
         }
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function resolveTargetLocales(): array
     {
-        $codes = $this->targetLocales ?? config('app.available_locales', []);
-        $map = config('localization.auto_translate.map', []);
+        /** @var array<int, string> $availableLocales */
+        $availableLocales = (array) config('app.available_locales', []);
+        $codes = $this->targetLocales ?? $availableLocales;
+        /** @var array<string, string> $map */
+        $map = (array) config('localization.auto_translate.map', []);
         $results = [];
 
         foreach ($codes as $code) {
@@ -132,7 +143,7 @@ final class TranslateModelJob implements ShouldQueue
             }
 
             if (isset($map[$code])) {
-                $results[] = $code;
+                $results[] = (string) $code;
             }
         }
 

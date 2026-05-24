@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Victormgomes\AutoTranslate\Concerns;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Victormgomes\AutoTranslate\Jobs\TranslateModelJob;
 use Victormgomes\AutoTranslate\Models\AutoTranslation;
 use Victormgomes\AutoTranslate\Support\AutoTranslateHelper;
 
 /**
- * @mixin Model
- *
- * @phpstan-ignore-next-line
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 trait AutoTranslatable
 {
@@ -22,6 +19,10 @@ trait AutoTranslatable
         static::saved(fn ($model) => $model->triggerAutoTranslation());
     }
 
+    /**
+     * @param string $key
+     * @return mixed
+     */
     public function getAttribute($key)
     {
         $value = parent::getAttribute($key);
@@ -41,7 +42,9 @@ trait AutoTranslatable
         $cacheKey = 'auto_translate:'.get_class($this).':'.$this->getKey().':'.$key.':'.$locale;
 
         return Cache::remember($cacheKey, now()->addDays(7), function () use ($key, $locale, $value) {
-            $translation = AutoTranslation::where('translatable_type', get_class($this))
+            /** @var \Illuminate\Database\Eloquent\Builder<AutoTranslation> $query */
+            $query = AutoTranslation::query();
+            $translation = $query->where('translatable_type', get_class($this))
                 ->where('translatable_id', $this->getKey())
                 ->where('field', $key)
                 ->where('locale', $locale)
@@ -53,10 +56,17 @@ trait AutoTranslatable
 
     public function triggerAutoTranslation(): void
     {
+        /** @var string $modelClass */
+        $modelClass = get_class($this);
+        /** @var int|string $modelId */
+        $modelId = $this->getKey();
+        /** @var string $locale */
+        $locale = app()->getLocale();
+
         TranslateModelJob::dispatch(
-            get_class($this),
-            $this->getKey(),
-            app()->getLocale()
+            $modelClass,
+            $modelId,
+            $locale
         );
     }
 }

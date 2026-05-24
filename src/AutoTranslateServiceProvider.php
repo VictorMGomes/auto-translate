@@ -23,7 +23,7 @@ class AutoTranslateServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->singleton(AutoTranslateHelper::class, function () {
+        $this->app->singleton(AutoTranslateHelper::class, function (): AutoTranslateHelper {
             return new AutoTranslateHelper;
         });
     }

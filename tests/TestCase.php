@@ -29,3 +29,8 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
     }
 }
+
+class TestModel extends \Illuminate\Database\Eloquent\Model
+{
+    use \Victormgomes\AutoTranslate\Concerns\AutoTranslatable;
+}

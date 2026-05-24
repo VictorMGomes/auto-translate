@@ -10,15 +10,17 @@ use Victormgomes\AutoTranslate\AutoTranslate;
 
 final class AutoTranslateHelper
 {
+    /**
+     * @return array<int, string>
+     */
     public static function getTranslatableAttributes(Model $model): array
     {
         $reflection = new ReflectionClass($model);
         $attributes = $reflection->getAttributes(AutoTranslate::class);
 
         if (! empty($attributes)) {
-            /** @var AutoTranslate $attr */
             $attr = $attributes[0]->newInstance();
-            if ($attr->fields) {
+            if ($attr instanceof AutoTranslate && $attr->fields) {
                 return $attr->fields;
             }
         }
