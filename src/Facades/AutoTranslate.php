@@ -4,7 +4,6 @@ namespace Victormgomes\AutoTranslate\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-
 class AutoTranslate extends Facade
 {
     protected static function getFacadeAccessor(): string

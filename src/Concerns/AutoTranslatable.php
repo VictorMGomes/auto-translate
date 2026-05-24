@@ -32,7 +32,7 @@ trait AutoTranslatable
             return $value;
         }
 
-        $cacheKey = "auto_translate:".get_class($this).":".$this->getKey().":".$key.":".$locale;
+        $cacheKey = 'auto_translate:'.get_class($this).':'.$this->getKey().':'.$key.':'.$locale;
 
         return Cache::remember($cacheKey, now()->addDays(7), function () use ($key, $locale, $value) {
             $translation = AutoTranslation::where('translatable_type', get_class($this))
