@@ -22,4 +22,17 @@ final class AutoTranslateHelper
             }
         }
 
-        
+        return [];
+    }
+
+    public static function shouldTranslateAttribute(mixed $value): bool
+    {
+        if (! is_string($value)) {
+            return false;
+        }
+
+        $value = trim($value);
+
+        return ! empty($value) && strlen($value) > 1;
+    }
+}
