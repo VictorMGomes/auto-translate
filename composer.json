@@ -1,7 +1,7 @@
 {
   "name": "victormgomes/auto-translate",
   "description": "Automatic translation for translatable attributes in Eloquent models",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "keywords": [
     "Victor M. Gomes",
     "laravel",
