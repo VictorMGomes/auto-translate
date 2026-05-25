@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\App;
 use Laravel\Ai\AnonymousAgent;
-use Victormgomes\AutoTranslate\Tests\TestModel;
 use Victormgomes\AutoTranslate\Models\AutoTranslation;
+use Victormgomes\AutoTranslate\Tests\TestModel;
 
 it('can auto translate model attributes', function () {
     // 1. Fake the AI agent so we don't need real credentials.

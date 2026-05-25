@@ -14,7 +14,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->app['db']->connection()->getSchemaBuilder()->create('test_models', function (\Illuminate\Database\Schema\Blueprint $table) {
+        $this->app['db']->connection()->getSchemaBuilder()->create('test_models', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('content')->nullable();
@@ -32,7 +32,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Laravel\Ai\AiServiceProvider::class,
+            AiServiceProvider::class,
             AutoTranslateServiceProvider::class,
         ];
     }
@@ -43,6 +43,8 @@ class TestCase extends Orchestra
     }
 }
 
+use Illuminate\Database\Schema\Blueprint;
+use Laravel\Ai\AiServiceProvider;
 use Victormgomes\AutoTranslate\AutoTranslate;
 
 /**
