@@ -5,6 +5,7 @@ namespace Victormgomes\AutoTranslate\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Victormgomes\AutoTranslate\AutoTranslate;
 use Victormgomes\AutoTranslate\AutoTranslateServiceProvider;
 use Victormgomes\AutoTranslate\Concerns\AutoTranslatable;
 
@@ -14,7 +15,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->app['db']->connection()->getSchemaBuilder()->create('test_models', function (Blueprint $table) {
+        $this->app['db']->connection()->getSchemaBuilder()->create('test_models', function (\Illuminate\Database\Schema\Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('content')->nullable();
@@ -32,7 +33,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            AiServiceProvider::class,
+            \Laravel\Ai\AiServiceProvider::class,
             AutoTranslateServiceProvider::class,
         ];
     }
@@ -42,10 +43,6 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
     }
 }
-
-use Illuminate\Database\Schema\Blueprint;
-use Laravel\Ai\AiServiceProvider;
-use Victormgomes\AutoTranslate\AutoTranslate;
 
 /**
  * @property int $id
