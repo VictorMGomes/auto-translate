@@ -20,7 +20,7 @@ final class AutoTranslateHelper
 
         if (! empty($attributes)) {
             $attr = $attributes[0]->newInstance();
-            if ($attr instanceof AutoTranslate && $attr->fields) {
+            if ($attr->fields) {
                 return $attr->fields;
             }
         }

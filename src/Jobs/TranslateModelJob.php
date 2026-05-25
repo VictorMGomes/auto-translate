@@ -12,7 +12,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Laravel\Ai\Facades\Ai;
 use Throwable;
 use Victormgomes\AutoTranslate\Models\AutoTranslation;
 use Victormgomes\AutoTranslate\Support\AutoTranslateHelper;
@@ -102,11 +101,9 @@ final class TranslateModelJob implements ShouldQueue
                       Return ONLY the translated text, preserving any HTML tags or placeholders like :name or :attribute.
                       Text: \"{$sourceText}\"";
 
-            $translatedText = Ai::withConnection($connection)
-                ->withModel($modelName)
-                ->prompt($prompt)
-                ->execute()
-                ->text();
+            $translatedText = \Laravel\Ai\agent()
+                ->prompt($prompt, provider: $connection, model: $modelName)
+                ->text;
 
             $translatedText = trim($translatedText, " \"\n\r\t\v\0");
 

@@ -58,7 +58,7 @@ trait AutoTranslatable
 
     public function triggerAutoTranslation(): void
     {
-        /** @var string $modelClass */
+        /** @var class-string $modelClass */
         $modelClass = get_class($this);
         /** @var int|string $modelId */
         $modelId = $this->getKey();

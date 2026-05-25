@@ -14,6 +14,16 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
+        $this->app['db']->connection()->getSchemaBuilder()->create('test_models', function (\Illuminate\Database\Schema\Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->string('content')->nullable();
+            $table->timestamps();
+        });
+
+        $migration = include __DIR__.'/../database/migrations/create_auto_translations_table.php.stub';
+        $migration->up();
+
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Victormgomes\\AutoTranslate\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
@@ -22,6 +32,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            \Laravel\Ai\AiServiceProvider::class,
             AutoTranslateServiceProvider::class,
         ];
     }
@@ -32,7 +43,17 @@ class TestCase extends Orchestra
     }
 }
 
+use Victormgomes\AutoTranslate\AutoTranslate;
+
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $content
+ */
+#[AutoTranslate(['title', 'content'])]
 class TestModel extends Model
 {
     use AutoTranslatable;
+
+    protected $guarded = [];
 }

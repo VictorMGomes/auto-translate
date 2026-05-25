@@ -23,5 +23,5 @@ services:
         composer install --no-interaction --prefer-dist
       fi &&
       ./vendor/bin/pest &&
-      ./vendor/bin/phpstan analyse src --memory-limit=-1
+      ./vendor/bin/phpstan analyse --memory-limit=-1
       "
