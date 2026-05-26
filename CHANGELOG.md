@@ -2,6 +2,10 @@
 
 All notable changes to `auto-translate` will be documented in this file.
 
+## v1.0.0 - 2026-05-26
+
+**Full Changelog**: https://github.com/VictorMGomes/auto-translate/compare/v0.0.5...v1.0.0
+
 ## v0.0.5 - 2026-05-25
 
 **Full Changelog**: https://github.com/VictorMGomes/auto-translate/compare/v0.0.4...v0.0.5
